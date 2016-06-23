@@ -37,10 +37,10 @@ mirror getfiles
 mirror getvhost
 ```
 
-That's all, you are done !
-
-
-```
+That's all, you are done !  
+Remote mysql hostname or ip have been locally replicated to avoid changing any parameters locally.  
+Now just edit the hosts file of your desktop computer to target your local server under the production website hostname, for example :  
+192.168.0.16 www.johndoe.com
 
 ## Install
 ```
