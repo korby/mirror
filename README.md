@@ -18,7 +18,7 @@ On your local server containing same services than remote server and same vhosts
 mkdir /var/www/johnedoe
 vi /var/www/johnedoe/mirror-config.yml
 ```
-In mirror-config.yml now opened, add your remote parameters  
+In mirror-config.yml now opened, add your remote parameters:  
 ```yaml
 mirror:
   # remote access
@@ -28,7 +28,7 @@ mirror:
   # remote config file path from deploy_path
   path_conf: wp-config.php
 ```
-Then run that commands  
+Then run that commands:  
 ```
 cd /var/www/johnedoe
 mirror test
