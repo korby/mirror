@@ -1,0 +1,4 @@
+#
+if [ ! -d ./current ]; then mkdir ./current; fi
+rsync -avz --exclude="cache" $mirror_ssh:$mirror_path/current/ ./current/
+rsync -avz --exclude="cache" $mirror_ssh:$mirror_path/shared/ ./shared/

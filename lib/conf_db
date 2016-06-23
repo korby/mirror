@@ -1,0 +1,7 @@
+#
+ssh_cat_conf="ssh $mirror_ssh cat $mirror_path/current/$mirror_path_conf"
+
+dbh=`ssh $mirror_ssh "php -r 'echo php_strip_whitespace(\"$mirror_path/current/$mirror_path_conf\");' | sed -e 's/ define/\n\rdefine/g'" |grep "DB_HOST" | cut -d, -f2 | cut -d"'" -f2`
+dbn=`ssh $mirror_ssh "php -r 'echo php_strip_whitespace(\"$mirror_path/current/$mirror_path_conf\");' | sed -e 's/ define/\n\rdefine/g'" |grep "DB_NAME" | cut -d, -f2 | cut -d"'" -f2`
+dbu=`ssh $mirror_ssh "php -r 'echo php_strip_whitespace(\"$mirror_path/current/$mirror_path_conf\");' | sed -e 's/ define/\n\rdefine/g'" |grep "DB_USER" | cut -d, -f2 | cut -d"'" -f2`
+dbp=`ssh $mirror_ssh "php -r 'echo php_strip_whitespace(\"$mirror_path/current/$mirror_path_conf\");' | sed -e 's/ define/\n\rdefine/g'" |grep "DB_PASSWORD" | cut -d, -f2 | cut -d"'" -f2`

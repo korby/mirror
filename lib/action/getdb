@@ -1,0 +1,12 @@
+#
+. $abs_path/lib/conf_db
+
+
+track "warning" "Exporting remote database"
+ssh $mirror_ssh "mysqldump -h $dbh -u $dbu -p$dbp $dbn > /tmp/$dbn-mirror.sql"
+
+track "warning" "Getting database's export "
+scp $mirror_ssh:/tmp/$dbn-mirror.sql .
+
+
+

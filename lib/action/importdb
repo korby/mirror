@@ -1,0 +1,59 @@
+#
+. $abs_path/lib/conf_db
+
+
+if [ "$dbh" != "127.0.0.1" ] && [ "$dbh" != "localhost" ] && [ "$(grep "$dbh" /etc/hosts)" == "" ] && [[ ! "$dbh" =~ [0-9].* ]]; then
+	imp_cmd0="echo '127.0.0.1 $dbh' >> /etc/hosts";
+elif [[ "$dbh" =~ [0-9].* ]]; then
+	if [ "$(ifconfig | grep $dbh)" == "" ]; then
+		i="0"
+		while [ $i -lt 50 ]
+			do
+			if [ "$(ifconfig | grep eth0:$i)" == "" ]; then
+				break;
+			fi 
+			i=$[$i+1]
+		done
+		imp_cmd0="ifconfig eth0:$i $dbh";
+	fi
+fi
+
+imp_cmd1="mysql -h $dbh -u c2is -pc2isdev -e 'drop database $dbn;'"
+imp_cmd2="mysql -h $dbh -u c2is -pc2isdev -e 'create database $dbn';"
+imp_cmd3="mysql -h $dbh -u c2is -pc2isdev -e 'GRANT ALL PRIVILEGES ON $dbn.* To $dbu@$dbh IDENTIFIED BY \"$dbp\";'"
+imp_cmd4="mysql -h $dbh -u $dbu -p$dbp $dbn --default-character-set=utf8 < ./$dbn-mirror.sql"
+
+
+track "warning" "Following commands will be performed:"
+track "warning" "$imp_cmd0"
+track "warning" "$imp_cmd1"
+track "warning" "$imp_cmd2"
+track "warning" "$imp_cmd3"
+track "warning" "$imp_cmd4"
+
+read -p "Ok to execute [N,y] ? " agree
+case $agree in
+	"y" | "Y" | "yes" | "Yes")
+
+			if [ "$imp_cmd0" != "" ]; then
+				track "cool" "Executing $imp_cmd0"
+	        	eval $imp_cmd0
+	        	cat <<EOF > ./boot.sh
+#!/bin/bash
+$imp_cmd0
+EOF
+				chmod +x ./boot.sh
+			fi
+			track "cool" "Executing $imp_cmd1"
+			eval $imp_cmd1
+			track "cool" "Executing $imp_cmd2"
+			eval $imp_cmd2
+			track "cool" "Executing $imp_cmd3"
+			eval $imp_cmd3	
+			track "cool" "Executing $imp_cmd4"		
+			eval $imp_cmd4
+
+	        ;;
+	*)
+	        track "warning" "Aborted."; ;;
+esac

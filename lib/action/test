@@ -1,0 +1,15 @@
+#
+track "warning" "Test connexion ssh et existence du répertoire racine"
+ssh $mirror_ssh ls $mirror_path/
+
+track "warning" "Test récupération des paramètres bdd"
+
+. $abs_path/lib/conf_db
+
+if [ "$dbh" == "" ] || [ "$dbn" == "" ] || [ "$dbu" == "" ] || [ "$dbp" == "" ] ; then
+  track "error" "Aucun paramètres bdd trouvés"
+else
+  track "cool" "paramètres bdd trouvés : $dbh $dbn $dbu $dbp"
+fi
+
+
