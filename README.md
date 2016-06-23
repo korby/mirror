@@ -17,7 +17,9 @@ That command shows you usage
 ./mirror
 ```
 
-## Usage
+## Install
+```
 git clone git@github.com:korby/mirror.git
 cd mirror
-ln -s /usr/bin/deployer `pwd`/deployer.sh
+ln -s /usr/bin/mirror `pwd`/mirror.sh
+```
