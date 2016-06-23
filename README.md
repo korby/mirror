@@ -12,7 +12,7 @@ Automatically get files (current and shared) preserving symlinks
 Automatically get and activate apache vhost
 
 ## Usage
-I want to replicate locally my production projet remotly hosted in /var/www/johnedoe under the domain www.johndoe.com  
+I want to replicate locally my production projet remotly hosted in /var/www/johnedoe under the domain www.johndoe.com.  
 On your local server containing same services than remote server and same vhosts root dir (/var/www usually and in examples below), do :
 ```
 mkdir /var/www/johnedoe
