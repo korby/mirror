@@ -6,9 +6,9 @@ Bash tool to automate mirroring website for testing locally. On each side (remot
 - mysql
 
 ## Features
-Automatically export and get db
-Automatically create, import db and tunes access (ip or domain mapping, user rights)
-Automatically get files (current and shared) preserving symlinks
+Automatically export and get db  
+Automatically create, import db and tunes access (ip or domain mapping, user rights)  
+Automatically get files (current and shared) preserving symlinks  
 Automatically get and activate apache vhost
 
 ## Usage
