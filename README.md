@@ -28,6 +28,7 @@ mirror:
   # remote config file path from deploy_path
   path_conf: wp-config.php
 ```
+Then run that commands  
 ```
 cd /var/www/johnedoe
 mirror test
