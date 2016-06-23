@@ -12,9 +12,34 @@ Automatically get files (current and shared) preserving symlinks
 Automatically get and activate apache vhost
 
 ## Usage
-That command shows you usage
+I want to replicate locally my production projet remotly hosted in /var/www/johnedoe
+On your local server containing same services than remote server and same vhosts root dir (/var/www usually and in examples below), do :
 ```
-./mirror
+mkdir /var/www/johnedoe
+vi /var/www/johnedoe/mirror-config.yml
+```
+
+```yaml
+mirror:
+  # remote access
+  ssh: username@remote-host.com
+  # remote deploy_path
+  path: /var/www/johnedoe/
+  # remote config file path from deploy_path
+  path_conf: wp-config.php
+```
+```
+cd /var/www/johnedoe
+mirror test
+mirror getdb
+mirror importdb
+mirror getfiles
+mirror getvhost
+```
+
+That's all, you are done !
+
+
 ```
 
 ## Install
