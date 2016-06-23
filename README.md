@@ -12,13 +12,13 @@ Automatically get files (current and shared) preserving symlinks
 Automatically get and activate apache vhost
 
 ## Usage
-I want to replicate locally my production projet remotly hosted in /var/www/johnedoe
+I want to replicate locally my production projet remotly hosted in /var/www/johnedoe  
 On your local server containing same services than remote server and same vhosts root dir (/var/www usually and in examples below), do :
 ```
 mkdir /var/www/johnedoe
 vi /var/www/johnedoe/mirror-config.yml
 ```
-
+In mirror-config.yml now opened, add your remote parameters  
 ```yaml
 mirror:
   # remote access
