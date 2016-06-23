@@ -18,6 +18,6 @@ That command shows you usage
 ```
 
 ## Usage
-git clone git@github.com:korby/deployer.git
+git clone git@github.com:korby/mirror.git
 cd mirror
 ln -s /usr/bin/deployer `pwd`/deployer.sh
