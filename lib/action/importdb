@@ -20,8 +20,8 @@ fi
 
 imp_cmd1="mysql -h $dbh -u c2is -pc2isdev -e 'drop database $dbn;'"
 imp_cmd2="mysql -h $dbh -u c2is -pc2isdev -e 'create database $dbn';"
-imp_cmd3="mysql -h $dbh -u c2is -pc2isdev -e 'GRANT ALL PRIVILEGES ON $dbn.* To `$dbu`@$dbh IDENTIFIED BY \"$dbp\";'"
-imp_cmd4="mysql -h $dbh -u $dbu -p$dbp $dbn --default-character-set=utf8 < ./$dbn-mirror.sql"
+imp_cmd3="mysql -h $dbh -u c2is -pc2isdev -e 'GRANT ALL PRIVILEGES ON $dbn.* To \`$dbu\`@$dbh IDENTIFIED BY \"$dbp\";'"
+imp_cmd4="mysql -h $dbh -u $dbu -p'$dbp' $dbn --default-character-set=utf8 < ./$dbn-mirror.sql"
 
 
 track "warning" "Following commands will be performed:"
