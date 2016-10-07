@@ -1,13 +1,16 @@
 #
 track "warning" "Looking for vhost targeting the path $mirror_path/"
-vhost=`ssh $mirror_ssh "grep -Rl $mirror_path/ /etc/apache2/sites-enabled/*"`
+vhosts=`ssh $mirror_ssh "grep -Rl $mirror_path/ /etc/apache2/sites-enabled/*"`
 
 
-if [ "$vhost" != "" ]; then
-	track "cool" "$vhost found !"
-	track "warning" "Getting it"
-	scp $mirror_ssh:$vhost /etc/apache2/sites-available/
-	track "warning" "Enable it"
-	cd /etc/apache2/sites-available/
-	a2ensite `echo $vhost | cut -d/ -f5`
+if [ "$vhosts" != "" ]; then
+	for vhost in $vhosts
+	do
+		track "cool" "$vhost found !"
+		track "warning" "Getting it"
+		scp $mirror_ssh:$vhost /etc/apache2/sites-available/
+		track "warning" "Enable it"
+		cd /etc/apache2/sites-available/
+		a2ensite `echo $vhost | cut -d/ -f5`
+	done
 fi

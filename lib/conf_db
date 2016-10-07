@@ -1,13 +1,24 @@
 #
 ssh_cat_conf="ssh $mirror_ssh cat $mirror_path/current/$mirror_path_conf"
 
-if [[ $mirror_path_conf = *".php" ]]; then
+# WORDPRESS
+if [[ $mirror_path_conf = *"wp-config.php" ]]; then
 	dbh=`ssh $mirror_ssh "php -r 'echo php_strip_whitespace(\"$mirror_path/current/$mirror_path_conf\");' | sed -e 's/ define/\n\rdefine/g'" |grep "DB_HOST" | cut -d, -f2 | cut -d"'" -f2`
 	dbn=`ssh $mirror_ssh "php -r 'echo php_strip_whitespace(\"$mirror_path/current/$mirror_path_conf\");' | sed -e 's/ define/\n\rdefine/g'" |grep "DB_NAME" | cut -d, -f2 | cut -d"'" -f2`
 	dbu=`ssh $mirror_ssh "php -r 'echo php_strip_whitespace(\"$mirror_path/current/$mirror_path_conf\");' | sed -e 's/ define/\n\rdefine/g'" |grep "DB_USER" | cut -d, -f2 | cut -d"'" -f2`
 	dbp=`ssh $mirror_ssh "php -r 'echo php_strip_whitespace(\"$mirror_path/current/$mirror_path_conf\");' | sed -e 's/ define/\n\rdefine/g'" |grep "DB_PASSWORD" | cut -d, -f2 | cut -d"'" -f2`
 fi
 
+# DRUPAL
+if [[ $mirror_path_conf = *"settings.php" ]]; then
+	dbh=`ssh $mirror_ssh "php -r 'include(\"$mirror_path/current/$mirror_path_conf\");echo \\$databases[\"default\"][\"default\"][\"host\"];'"`
+	dbn=`ssh $mirror_ssh "php -r 'include(\"$mirror_path/current/$mirror_path_conf\");echo \\$databases[\"default\"][\"default\"][\"database\"];'"`
+	dbu=`ssh $mirror_ssh "php -r 'include(\"$mirror_path/current/$mirror_path_conf\");echo \\$databases[\"default\"][\"default\"][\"username\"];'"`
+	dbp=`ssh $mirror_ssh "php -r 'include(\"$mirror_path/current/$mirror_path_conf\");echo \\$databases[\"default\"][\"default\"][\"password\"];'"`
+
+fi
+
+# SYMFONY
 if [[ $mirror_path_conf = *".yml" ]]; then
 	dbh=`ssh $mirror_ssh "grep ' database_host' $mirror_path/current/$mirror_path_conf | cut -d':' -f2 | cut -d' ' -f2 | sed s'/\"//g' | sed s\"/'//g\""`
 	if [[ $dbh = *'%' ]]; then dbh=`ssh $mirror_ssh 'echo $SYMFONY__DATABASE__HOST'`; fi
